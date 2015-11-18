@@ -1,17 +1,21 @@
 1. Download and install the GitHub Desktop application from [desktop.github.com](https://desktop.github.com/)
 
-2. Once installed, sign in using your GitHub username and password (which we set up during the Summit)
+2. Once installed, sign in using your GitHub username and password (which we set up during the Summit)  
 
-3. Now, clone your institution's repository, as shown below
+3. Now, clone your institution's repository, as shown below.  
+  
     ![Cloning process GIF](3-clone.gif)  
   
-4. To take a look at how the repository looks on your computer, right click its name and select "Open in Explorer" (or "Open in Finder" for Mac).
+4. To take a look at how the repository looks on your computer, right click its name and select "Open in Explorer" (or "Open in Finder" for Mac).  
+  
 	![Viewing your repository](4-view-repo.gif)  
   
-5. Next, to add metadata files to Stage 1 of a collection, double click the folder with the name of the collection you're working on, then double click on the `stage1` folder.
+5. Next, to add metadata files to Stage 1 of a collection, double click the folder with the name of the collection you're working on, then double click on the `stage1` folder.  
+  
 	![Getting to Stage 1](5-stage1.gif)  
   
-6. Depending on your own desired workflow, you can then cut and paste metadata XML files from elsewhere on your computer into this folder. Or, you could download them from the Internet directly into the `stage1` folder.
+6. Depending on your own desired workflow, you can then cut and paste metadata XML files from elsewhere on your computer into this folder. Or, you could download them from the Internet directly into the `stage1` folder.  
+  
 	![Adding files to `stage1` folder](6-add-file.gif)  
 	Note that you can add as many file as you'd like at this point, not just one at a time.  
   

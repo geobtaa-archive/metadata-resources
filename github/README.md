@@ -10,7 +10,7 @@
   
 	![Viewing your repository](4-view-repo.gif)  
   
-5. Next, to add metadata files to Stage 1 of a collection, double click the folder with the name of the collection you're working on, then double click on the `stage1` folder.  
+5. Next, to add metadata files to Stage 1 of a collection, double click the folder with the name of the collection you're working on, then double click on the `stage1` folder.  *Note: we are now using the more descriptive name "1_submit_records" for this folder-KM*
   
 	![Getting to Stage 1](5-stage1.gif)  
   

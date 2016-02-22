@@ -11,7 +11,5 @@ Although we can't filter by Group (institution) within CSW itself, with GeoNetwo
   + NEW_link_service_wms
   + NEW_link_service_esri
   + NEW_link_information
-  + NEW_contact_organization
-  + NEW_contact_individual
   + NEW_contact_name (for the contact element directly appended to MD_Metadata)
   + NEW_contact_organization (for the contact element directly appended to MD_Metadata)

@@ -1,0 +1,3 @@
+[submodule "geonames-reconcile"]
+	path = geonames-reconcile
+	url = https://github.com/cmh2166/geonames-reconcile.git

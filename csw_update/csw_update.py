@@ -9,9 +9,10 @@ from datetime import datetime
 import unicodecsv as csv
 import pdb
 
-
 # for example http://45.55.225.162/geonetwork/srv/eng/csw-publication
+#CSW_URL = "https://lib-geonetdev.oit.umn.edu/geonetwork/srv/eng/csw-publication"
 CSW_URL = "http://45.55.225.162/geonetwork/srv/eng/csw-publication"
+
 
 #logging stuff
 log = logging.getLogger('owslib')
@@ -21,7 +22,6 @@ ch.setLevel(logging.DEBUG)
 log_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 ch.setFormatter(log_formatter)
 log.addHandler(ch)
-
 
 
 class UpdateCSW(object):
@@ -50,7 +50,8 @@ class UpdateCSW(object):
             "timestamp": "gmd:dateStamp/gco:DateTime",
             "online_resources": "*//gmd:CI_OnlineResource",
             "distribution_link": "gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions[{index}]/gmd:MD_DigitalTransferOptions[1]/gmd:onLine[1]/gmd:CI_OnlineResource[1]/gmd:linkage[1]/gmd:URL[1]",
-            "distributor_distribution_link": "gmd:distributionInfo/gmd:MD_Distribution/gmd:distributor[{distributor_index}]/gmd:MD_Distributor/gmd:distributorTransferOptions[{index}]/gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource/gmd:linkage/gmd:URL"
+            "distributor_distribution_link": "gmd:distributionInfo/gmd:MD_Distribution/gmd:distributor[{distributor_index}]/gmd:MD_Distributor/gmd:distributorTransferOptions[{index}]/gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource/gmd:linkage/gmd:URL",
+            "keywords_theme":""
         }
         self.protocol_map = {
             "download": ["WWW:DOWNLOAD-1.0-http--download","download", "WWW:DOWNLOAD"],
@@ -147,6 +148,7 @@ class UpdateCSW(object):
     def NEW_link_service_esri(self, uuid, new_link):
         self.update_links(links, uuid, new_link, "esri_service")
 
+
     def NEW_link_service_wms(self, uuid, new_link):
         self.update_links(links, uuid, new_link, "wms_service")
 
@@ -154,13 +156,16 @@ class UpdateCSW(object):
     def NEW_link_information(self, uuid, new_link):
         self.update_links(links, uuid, new_link, "information")
 
+
     def NEW_contact_organization(self):
         #stub
         pass
 
+
     def NEW_contact_individual(self):
         #stub
         pass
+
 
     def update_timestamp(self, uuid):
         ts = datetime.now().isoformat()
@@ -170,9 +175,11 @@ class UpdateCSW(object):
             propertyvalue=ts,
             identifier=uuid)
 
+
     def get_record_by_id(self, uuid):
         self.csw.getrecordbyid(id=[uuid], outputschema="http://www.isotc211.org/2005/gmd")
         self.records[uuid] = self.csw.records[uuid]
+
 
     def process_spreadsheet(self):
         for row in self.reader:
@@ -197,5 +204,4 @@ class UpdateCSW(object):
 
 
 #f = UpdateCSW(CSW_URL, raw_input("Please enter username: "), raw_input("Please enter password: "), "CSWUpdateTest3.csv")
-f = UpdateCSW(CSW_URL, "dykex005", "CICGDDP4eva!", "CSWUpdateTest3.csv")
 f.process_spreadsheet()

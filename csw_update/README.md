@@ -11,7 +11,13 @@ Although we can't filter by Group (institution) within CSW itself, with GeoNetwo
   + NEW_link_service_wms
   + NEW_link_service_esri
   + NEW_link_information
+- The following fields are in the works
   + NEW_contact_organization
   + NEW_contact_individual
   + NEW_contact_name (for the contact element directly appended to MD_Metadata)
   + NEW_contact_organization (for the contact element directly appended to MD_Metadata)
+  + NEW_keywords_theme
+  + NEW_keywords_place
+
+# Bonus OpenRefine Notes!
+The CSV output from GeoNetwork can be loaded into (OpenRefine)[http://openrefine.org/]. OpenRefine has some features  

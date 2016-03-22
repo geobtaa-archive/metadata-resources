@@ -14,8 +14,6 @@ Although we can't filter by Group (institution) within CSW itself, with GeoNetwo
 - The following fields are in the works
   + NEW_contact_organization
   + NEW_contact_individual
-  + NEW_contact_name (for the contact element directly appended to MD_Metadata)
-  + NEW_contact_organization (for the contact element directly appended to MD_Metadata)
   + NEW_keywords_theme
   + NEW_keywords_place
 

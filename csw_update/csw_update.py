@@ -203,5 +203,9 @@ class UpdateCSW(object):
             #    self.update_timestamp(self.uuid)
 
 
+<<<<<<< HEAD
 #f = UpdateCSW(CSW_URL, raw_input("Please enter username: "), raw_input("Please enter password: "), "CSWUpdateTest3.csv")
+=======
+f = UpdateCSW(CSW_URL, raw_input("Please enter username: "), raw_input("Please enter password: "), "CSWUpdateTest3.csv")
+>>>>>>> 0b93f428c7440a8e112ed626939d0eb270a7ffbd
 f.process_spreadsheet()

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xml:lang="en">
+	<dataIdInfo>
+		<idCitation>
+			<resTitle>template for replacing text</resTitle>
+		</idCitation>
+		<dataChar>
+			<CharSetCd value="004"/>
+		</dataChar>
+		<searchKeys>
+			<keyword>templates</keyword>
+		</searchKeys>
+	</dataIdInfo>
+	<distInfo>
+		<distTranOps>
+			<onLineSrc>
+				<linkage>http://example.com</linkage>
+			</onLineSrc>
+		</distTranOps>
+	</distInfo>
+	<Esri>
+		<ArcGISstyle>ISO 19139 Metadata Implementation Specification</ArcGISstyle>
+		<CreaDate>2016-03-16</CreaDate>
+		<CreaTime>16:57:24.26</CreaTime>
+		<ModDate>2016-03-22</ModDate>
+		<ModTime>11:08:29.41</ModTime>
+		<ArcGISFormat>1.0</ArcGISFormat>
+		<ArcGISProfile>ISO19139</ArcGISProfile>
+		<PublishStatus>editor:esri.dijit.metadata.editor</PublishStatus>
+	</Esri>
+	<mdDateSt>2016-03-16</mdDateSt>
+	<mdFileID>a70edc02ff2e4c608b13e6bf4ed20bff</mdFileID>
+	<dataSetURI>unique_filename_for_replacement</dataSetURI>
+	<mdChar>
+		<CharSetCd value="004"/>
+	</mdChar>
+	<mdContact>
+		<role>
+			<RoleCd value="007"/>
+		</role>
+	</mdContact>
+</metadata>

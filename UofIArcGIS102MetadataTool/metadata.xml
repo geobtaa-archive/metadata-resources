@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<metadata>
+	<idinfo>
+		<citation>
+			<citeinfo>
+				<origin>Idaho Geospatial Data Clearinghouse</origin>
+				<pubdate>20130408</pubdate>
+				<title>INSIDE Idaho ArcGIS 10.2 Batch Metadata Modifier Tool</title>
+				<edition>1.1</edition>
+				<geoform>computer program</geoform>
+				<pubinfo><pubplace>Moscow, Idaho USA</pubplace><publish>Idaho Geospatial Data Clearinghouse</publish></pubinfo><onlink>http://cloud.insideidaho.org/HelpDocs/batch_metadata_modifier_tool.html</onlink></citeinfo>
+		</citation>
+		<descript>
+			<abstract>Modifying and maintaining metadata for numerous objects can be a daunting task. Out-of-the-box metadata tools within ESRI ArcCatalog 10.1 are designed to primarily allow users to interact with metadata for one object at a time. There are, however a limited number of tools for performing metadata operations on multiple objects. The need exists to develop tools to modify metadata for numerous objects more effectively and efficiently. This tool allows users to select multiple objects and perform operations such as importing elements, creating thumbnail images, deleting elements, and modifying (i.e. finding and replacing) text in elements.</abstract>
+			<purpose>This tool, developed by INSIDE Idaho at the University of Idaho Library, was created to assist researchers with modifying FGDC CSDGM, ArcGIS 1.0 Format and ISO 19115 metadata for numerous data products generated under EPSCoR award EPS-0814387.
+
+This tool is not designed to be used by those unfamiliar with metadata, metadata standards, and metadata schemas.  The tool is for use by metadata librarians and metadata managers and those having experience modifying standardized metadata.  The tool is designed to expedite batch metadata maintenance. Users of this tool must fully understand the files they are modifying. No responsibility is assumed by the Idaho Geospatial Data Clearinghouse or the University of Idaho in the use of this tool. A portion of the development of this tool was made possible by an Idaho EPSCoR Office award.</purpose>
+		</descript>
+		<timeperd>
+			<timeinfo>
+				<sngdate>
+					<caldate>20130408</caldate>
+				</sngdate>
+			</timeinfo>
+			<current>initial release date; later revision is ongoing and continuous as resources allow</current>
+		</timeperd>
+		<status>
+			<progress>Complete</progress>
+			<update>As needed</update>
+		</status>
+		<spdom>
+			<bounding>
+				<westbc>-180.000000</westbc>
+				<eastbc>180.000000</eastbc>
+				<northbc>90.000000</northbc>
+				<southbc>-90.000000</southbc>
+			</bounding>
+		</spdom>
+		<keywords>
+			<theme>
+				<themekt>None</themekt>
+				<themekey>Batch metadata modifier utility</themekey>
+				<themekey>Batch metadata modifier tool</themekey>
+				<themekey>Computer program</themekey>
+				<themekey>Computer software</themekey>
+				<themekey>ESRI ArcGIS ArcCatalog Metadata 10.1 Add-In</themekey><themekey>ArcCatalog Metadata Tool</themekey><themekey>INSIDE Idaho Metadata Tool</themekey><themekey>Metadata toolbar</themekey></theme>
+		</keywords>
+		<accconst>None.</accconst>
+		<useconst>This tool is in a research and development state. It should be used with caution. Use this tool at your own risk. INSIDE Idaho, the University of Idaho Library, and the University of Idaho are not responsible for errors that may occur.</useconst>
+		<ptcontac>
+			<cntinfo>
+				<cntorgp>
+					<cntorg>Idaho Geospatial Data Clearinghouse</cntorg>
+					<cntper>Bruce Godfrey</cntper>
+				</cntorgp>
+				<cntpos>GIS Specialist</cntpos>
+				<cntaddr>
+					<addrtype>mailing and physical address</addrtype>
+					<address>1031 N. Academic Way</address>
+					<city>Coeur d'Alene</city>
+					<state>Idaho</state>
+					<postal>83814-2277</postal>
+					<country>USA</country>
+				</cntaddr>
+				<cntvoice>208.292.1407</cntvoice>
+				<cntemail>bgodfrey@uidaho.edu</cntemail>
+			</cntinfo>
+		</ptcontac>
+		<datacred>INSIDE Idaho at the University of Idaho Library; Joey Gentry - INSIDE Idaho Programmer; Edward Flathers - INSIDE Idaho Programmer; Idaho EPSCoR Office; Innovate! Inc.</datacred>
+	</idinfo>
+	<distinfo>
+		<distrib>
+			<cntinfo>
+				<cntorgp>
+					<cntorg>Idaho Geospatial Data Clearinghouse</cntorg>
+					<cntper>Bruce Godfrey</cntper>
+				</cntorgp>
+				<cntpos>GIS Specialist</cntpos>
+				<cntaddr>
+					<addrtype>mailing and physical address</addrtype>
+					<address>1031 N. Academic Way</address>
+					<city>Coeur d'Alene</city>
+					<state>Idaho</state>
+					<postal>83814-2277</postal>
+					<country>USA</country>
+				</cntaddr>
+				<cntvoice>208.292.1407</cntvoice>
+				<cntemail>bgodfrey@uidaho.edu</cntemail>
+			</cntinfo>
+		</distrib>
+		<distliab>Although this tool has been tested successfully on a computer system at the Idaho Geospatial Data Clearinghouse, no warranty, expressed or implied, is made regarding the utility of the tool on any other system, nor shall the act of distribution constitute any such warranty.</distliab>
+		<stdorder>
+			<digform>
+				<digtopt>
+					<onlinopt>
+						<computer>
+							<networka>
+								<networkr>http://cloud.insideidaho.org/webApps/util/zip.ashx?fn=http://cloud.insideidaho.org/data/igdc/UofIArcGIS102MetadataTool</networkr>
+							</networka>
+						</computer>
+					</onlinopt>
+				</digtopt>
+				<digtinfo><formname>ArcGIS Add-In and stand-alone Windows executable</formname></digtinfo></digform>
+			<fees>None</fees>
+		</stdorder>
+	</distinfo>
+	<metainfo>
+		<metc>
+			<cntinfo>
+				<cntorgp>
+					<cntorg>Idaho Geospatial Data Clearinghouse</cntorg>
+					<cntper>Bruce Godfrey</cntper>
+				</cntorgp>
+				<cntpos>GIS Specialist</cntpos>
+				<cntaddr>
+					<addrtype>mailing and physical address</addrtype>
+					<address>1031 N. Academic Way</address>
+					<city>Coeur d'Alene</city>
+					<state>Idaho</state>
+					<postal>83814-2277</postal>
+					<country>USA</country>
+				</cntaddr>
+				<cntvoice>208.292.1407</cntvoice>
+				<cntemail>bgodfrey@uidaho.edu</cntemail>
+			</cntinfo>
+		</metc>
+		<metstdn>FGDC Content Standards for Digital Geospatial Metadata</metstdn><metstdv>FGDC-STD-001-1998</metstdv><metd Sync="TRUE">20130916</metd></metainfo>
+	<Esri><MetaID>{C9C62D03-E332-47AD-80A2-5596E05E935B}</MetaID><CreaDate>20050601</CreaDate><CreaTime>15504000</CreaTime><SyncOnce>TRUE</SyncOnce><ModDate>20130916</ModDate><ModTime>10444600</ModTime></Esri><dataqual><lineage><srcinfo><srccite><citeinfo><title>Content Standard for Digital Geospatial Metadata</title><origin>Federal Geographic Data Committee</origin><pubdate>1998</pubdate><onlink>http://www.fgdc.gov/metadata/contstan.html</onlink></citeinfo></srccite><typesrc>paper and digital text</typesrc><srctime><timeinfo><sngdate><caldate>1998</caldate></sngdate></timeinfo><srccurr>approval date</srccurr></srctime><srccitea>FGDC-STD-001-1998</srccitea><srccontr>A revision of the 1994 version of the metadata standard. Specifies modifications in the production rules and adds a few new elements.</srccontr></srcinfo><procstep><proccont><cntinfo><cntorgp><cntorg>Idaho Geospatial Data Clearinghouse</cntorg><cntper>Bruce Godfrey</cntper></cntorgp><cntpos>GIS Specialist</cntpos><cntaddr><addrtype>mailing and physical address</addrtype><address>1031 N. Academic Way</address><city>Coeur d'Alene</city><state>Idaho</state><postal>83814-2277</postal></cntaddr><cntvoice>208.292.1407</cntvoice><cntemail>bgodfrey@uidaho.edu</cntemail></cntinfo></proccont>
+	<procdesc>
+	A previous version of this tool was written by Edward Flathers in VB6 for ArcGIS 9.x in 2004.  Initial C# development of this current 10.1 tool was performed by Joey Gentry.  Mr. Gentry created the original code and structure for this tool.  Innovate! Inc. made modification to Mr. Gentry's code to prepare the tool for public release.</procdesc><procdate>2011-2013</procdate><srcused>FGDC-STD-001-1998</srcused><srcused>ISO19115Workbook</srcused><srcused>ArcGIS1.0Format</srcused>
+	</procstep>
+	<srcinfo><srccite><citeinfo><origin>National Coastal Data Development Center</origin><pubdate>201201</pubdate><title>ISO 19115-2 Workbook</title><onlink>ftp://ftp.ncddc.noaa.gov/pub/Metadata/Online_ISO_Training/Intro_to_ISO/workbooks/MI_Metadata.pdf</onlink></citeinfo></srccite><typesrc>digital text</typesrc><srctime><timeinfo><sngdate><caldate>201201</caldate></sngdate></timeinfo><srccurr>publication date</srccurr></srctime><srccitea>ISO19115Workbook</srccitea><srccontr>Guide to implementing ISO 19115-2:2009(E), the North American Profile (NAP), and ISO 19110 Feature Catalogue</srccontr></srcinfo><srcinfo><srccite><citeinfo><title>ArcGIS 1.0 Format Metadata</title><origin>Environmental Sciences Research Institute</origin><pubinfo><pubplace>Redlands, CA</pubplace><publish>Environmental Sciences Research Institute</publish></pubinfo><pubdate>Unknown</pubdate></citeinfo></srccite><typesrc>digital text</typesrc><srctime><timeinfo><sngdate><caldate>unknown</caldate></sngdate></timeinfo><srccurr>publication date</srccurr></srctime><srccitea>ArcGIS1.0Format</srccitea><srccontr>ArcGIS 1.0 Format schema.</srccontr></srcinfo>
+	<procstep>
+	<procdesc>- Fixed import utility to handle compound repeating elements and work with both CDSGM and ISO metadata standards
+
+- Referenced online ISO schema files.  The form now needs Internet access to run.  Testing revealed the application needs to be schema aware to process ISO elements.
+
+- Fixed stability issues with selection of elements from within the tree view
+
+- Created the ability to Replace or Append Imported elements
+
+- Fixed general stability issues and error handling events
+
+- Provided error handling to prevent importing elements from records with mismatched root nodes.  Prevents inserting from different schema.  Also prevents use of XML fragments since the entire node-tree is required for insertion of imported elements.
+
+Created ArcGIS AddIn and compiled executable code to create version 1.1.  Copied to web site for release of version 1.1.
+</procdesc>
+<procdate>20130916</procdate>
+</procstep>
+
+	<procstep>
+	<procdesc>Added the ability to the stand-alone tool to select a directory (and sub-directories) containing XML files.  Additionally, reporting in the information window was suppressed to make loading large numbers of file significantly faster.   
+</procdesc>
+<procdate>20140304</procdate>
+</procstep>
+
+	<procstep>
+	<procdesc>Updated to use 10.2 references.</procdesc>
+<procdate>20141022</procdate>
+</procstep>
+
+
+</lineage><logic>Tool is not designed for those unfamiliar with XML metadata structures and schemas.
+
+Tool can be run as an ArcGIS Add-In or as a stand-alone Windows executable.
+
+Executable runs on PC only. (Not supported on Mac.)
+
+The ArcGIS Add-In requires ArcGIS Desktop version 10.1.
+
+Metadata formats accepted: FGDC CSDGM, ArcGIS 1.0, ArcGIS ISO, and ISO 19115.
+
+Modifying multiple files simultaneously that don't have identical structures is possible but not advised.
+
+If you have a question about the functionality of the tool, test it on copies of your metadata in a pre-production environment.</logic><complete>In stand-alone mode, only able to open XML files stored on a local drive (not from a network drive).
+
+In Add-In mode, can only import metadata XML from a local drive (not a network drive).</complete></dataqual><Binary><Thumbnail><Data EsriPropertyType="Picture">/9j/4AAQSkZJRgABAQEAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0a
+HBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIy
+MjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCACFAMgDASIA
+AhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQA
+AAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3
+ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWm
+p6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEA
+AwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSEx
+BhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElK
+U1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3
+uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiq
+rahAGZQJm2kqSkDsMjg8gY60AWqKpf2taDqZ/wDwHk/+Jo/ta0/6b/8AgPJ/8TQBdoqkNVtWOB55
+J7C3k/8Aiaf/AGhD/cuf/AWT/wCJoAtUVV/tCH+5c/8AgLJ/8TSf2jB/cuf/AAFk/wDiaALdFU/7
+Ttx1W4/8BpP/AImkOq2oHPnj/t3k/wDiaALtFUI9YspSRG0zkdQtvIf/AGWpP7Rg/uXP/gLJ/wDE
+0AW6KpnU7cdVuP8AwGk/+JpP7Vtf+m//AIDyf/E0AXaKpjUrdui3B+ltJ/8AE07+0If7lz/4Cyf/
+ABNAFqiqv9oQ/wBy5/8AAWT/AOJo/tCH+5c/+Asn/wATQBaoqr/aEP8Acuf/AAFk/wDiaQ6jAOqX
+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</Data></Thumbnail></Binary></metadata>

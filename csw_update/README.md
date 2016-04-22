@@ -16,14 +16,4 @@ Export a csv for the records you want to edit via spreadsheet. We use a custom c
 # Spreadsheet Input Structural Requirements
 - The input file format **must be** `csv`. Excel formats (`xls` or `xlsx`) are not supported.
 - There **must be** a column called "uuid". The values in it should correspond to the fileIdentifier for the records being updated. For example: `bdfc5cd2-732d-4559-a9c7-df38dd683aec`.
-- Currently, the following fields are acceptable for updating via spreadsheet and **must be** formatted exactly as written below to work
-  + NEW_title
-  + NEW_link_download
-  + NEW_link_service_wms
-  + NEW_link_service_esri
-  + NEW_link_information
-- The following fields are in the works
-  + NEW_contact_organization
-  + NEW_contact_individual
-  + NEW_keywords_theme
-  + NEW_keywords_place
+- See [FIELDS.md](FIELDS.md) for fields that can be manipulated via CSV, and what the columns must be named in order to be recognized.

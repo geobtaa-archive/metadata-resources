@@ -1,8 +1,19 @@
-# Notes - CSW
+# Installation
+If you don't have Pip, [get Pip](https://pip.pypa.io/en/latest/installing.html)!
 
-Although we can't filter by Group (institution) within CSW itself, with GeoNetwork we can define Virtual CSWs that filter to return only results from a group. That is we can create a virtual CSW to correspond to each institution.
+Either clone the repo or [download as a zip](https://github.com/CIC-Geospatial-Data-Discovery-Project/metadata-resources/archive/master.zip). Once cloned/downloaded and extracted, run this from the root of the repo:
 
-# spreadsheet input structure
+    pip install -r requirements.txt
+
+# Configuration
+1. Make a copy of `config.py.sample`
+2. Name it `config.py`
+3. Fill in `CSW_URL`, `USER`, and `PASSWORD`
+
+# Export from GeoNetwork
+Export a csv for the records you want to edit via spreadsheet. We use a custom csv export for the CIC: GDDP (mainly for link handling), but as long as you have the `uuid` field, the tool should work with the out of the box CSV export.
+
+# Spreadsheet Input Structural Requirements
 - The input file format **must be** `csv`. Excel formats (`xls` or `xlsx`) are not supported.
 - There **must be** a column called "uuid". The values in it should correspond to the fileIdentifier for the records being updated. For example: `bdfc5cd2-732d-4559-a9c7-df38dd683aec`.
 - Currently, the following fields are acceptable for updating via spreadsheet and **must be** formatted exactly as written below to work
@@ -16,6 +27,3 @@ Although we can't filter by Group (institution) within CSW itself, with GeoNetwo
   + NEW_contact_individual
   + NEW_keywords_theme
   + NEW_keywords_place
-
-# Bonus OpenRefine Notes!
-The CSV output from GeoNetwork can be loaded into (OpenRefine)[http://openrefine.org/]. OpenRefine has some features  

@@ -72,6 +72,7 @@ class UpdateCSW(object):
 
         }
         self.XPATHS = {"iso19139":{
+                "citation"                        : "gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation",
                 "title"                           : "gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString",
                 "distribution_format"             : "gmd:distributionInfo/gmd:MD_Distribution/gmd:distributionFormat/gmd:MD_Format/gmd:name/gco:CharacterString",
                 "date_creation"                   : "gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:dateType/gmd:CI_DateTypeCode[@codeListValue='creation']",
@@ -180,7 +181,6 @@ class UpdateCSW(object):
         tn ="csw:Record"
         pv = new_value
         ident = str(uuid)
-
         t = self.csw.transaction(ttype=tt,
             typename=tn,
             propertyname=pn,
@@ -535,10 +535,97 @@ class UpdateCSW(object):
         update = self._multiple_element_update(uuid, new_keywords, "keywords_theme")
         log.info("updated theme keywords")
 
+    def _date_or_datetime(self,date_element):
+        e = date_element.find("gco:Date", namespaces=self.namespaces)
+        if e is None:
+            e = date_element.find("gco:Datetime", namespaces=self.namespaces)
+        return e
+
+    def _add_gcodate_to_date(self, date_elem, new_date):
+        date_e = etree.SubElement(date_elem,
+            "{ns}Date".format(ns="{"+self.namespaces["gco"]+"}"),
+            nsmap=self.namespaces)
+        date_e.text = new_date
+
+    def _add_datetypecode_to_datetype(self,datetype,date_type):
+        datetypecode = etree.SubElement(datetype,
+            "{ns}CI_DateTypeCode".format(ns="{"+self.namespaces["gmd"]+"}"),
+            nsmap=self.namespaces)
+        datetypecode.set("codeList","http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode")
+        datetypecode.set("codeListValue", date_type.replace("date_",""))
+        datetypecode.set("codeSpace","002")
+        datetypecode.text = date_type.replace("date_","")
+
+    def _add_datetype_to_date(self, ci_date, date_type):
+        datetype = etree.SubElement(ci_date,
+            "{ns}dateType".format(ns="{"+self.namespaces["gmd"]+"}"),
+            nsmap=self.namespaces)
+        self._add_datetypecode_to_datetype(datetype, date_type)
+
+
+    def _create_date(self, date_elem, new_date, date_type):
+        ci_date = etree.SubElement(date_elem,
+            "{ns}CI_date".format(ns="{"+self.namespaces["gmd"]+"}"),
+            nsmap=self.namespaces)
+        self._add_datetype_to_date(ci_date, date_type)
+
+        date_elem2 =  etree.SubElement(ci_date,
+            "{ns}date".format(ns="{"+self.namespaces["gmd"]+"}"),
+            nsmap=self.namespaces)
+        self._add_gcodate_to_date(date_elem2, new_date)
+
+    def _check_for_nilreason(self, date_elem):
+        nil_attrib = "{gco}nilReason".format(gco="{"+self.namespaces["gco"]+"}")
+        nil = date_elem.get(nil_attrib)
+        if nil is not None:
+            date_elem.attrib.pop(nil_attrib)
+        self.tree_changed = True
+
     def _update_date(self, uuid, new_date, date_type):
-        xpath = self.XPATHS[self.schema][date_type]
-        xpath = xpath + "/../../gmd:date/gco:Date | " + xpath + "/../../gmd:date/gco:DateTime"
-        self._simple_element_update(uuid, new_date, xpath=xpath)
+        # xpath = self.XPATHS[self.schema][date_type]
+        # xpath = "gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:DateTime";
+        # xpath = "gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date[gmd:dateType/gmd:CI_DateTypeCode/@codeListValue='publication']/gmd:date/gco:Date"
+        xpath = "gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date[gmd:dateType/gmd:CI_DateTypeCode/@codeListValue='publication']/gmd:date";
+        new_date_parsed = parser.parse(new_date)
+        iso_date = new_date_parsed.isoformat()[:10]
+        self.get_record_by_id(uuid)
+        self._get_etree_for_record(uuid)
+
+        date_element = self.record_etree.xpath(xpath,
+            namespaces=self.namespaces_no_empty)
+
+        if len(date_element) >= 1:
+            self._check_for_nilreason(date_element[0])
+            date_type_elem = self._date_or_datetime(date_element[0])
+            if date_type_elem is not None:
+
+                xpath = self.record_etree.getpath(date_type_elem)
+                self._simple_element_update(uuid, new_date, xpath=xpath)
+            else:
+                self._add_gcodate_to_date(date_element[0], iso_date)
+                self.tree_changed = True
+        else:
+            # look for ancestor date element
+            citation_xpath = self.XPATHS[self.schema]["citation"]
+            citation_element = self.record_etree.xpath(citation_xpath,
+                namespaces=self.namespaces_no_empty)
+
+            if len(citation_element) >= 1:
+                date_elem = citation_element[0].find("gmd:date", namespaces=self.namespaces)
+                if date_elem is not None:
+                    self._check_for_nilreason(date_elem)
+                    date_children = date_elem.getchildren()
+
+                    if len(date_children) == 0:
+                        self._create_date(date_elem, iso_date, date_type)
+                        self.tree_changed = True
+                else:
+                    date_elem = etree.SubElement(citation_element[0],
+                        "{ns}date".format(ns="{"+self.namespaces["gmd"]+"}"),
+                        nsmap=self.namespaces)
+                    self._create_date(date_elem, iso_date, date_type)
+                    self.tree_changed = True
+
 
     def NEW_date_publication(self, uuid, new_date):
         if new_date != "":
@@ -620,6 +707,9 @@ class UpdateCSW(object):
             self.row_changed = False
             self.tree_changed = False
             self.uuid = row["uuid"]
+            if self.uuid == "DELETED":
+                continue
+
             log.debug(self.uuid)
             self.schema = row["schema"]
 
@@ -641,6 +731,9 @@ class UpdateCSW(object):
                     typename='csw:Record',
                     record=etree.tostring(self.record_etree),
                     identifier=self.uuid)
+                log.debug(self.csw.request)
+                log.debug(self.csw.response)
+
 
             if self.row_changed:
                self.update_timestamp(self.uuid)

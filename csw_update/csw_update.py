@@ -38,6 +38,7 @@ log.addHandler(ch)
 class UpdateCSW(object):
     def __init__(self, url, username, password, input_csv_path):
         self.INNER_DELIMITER = "###"
+        self.GEMET_ANCHOR_BASE_URI = "https://geonet.lib.umn.edu:80/geonetwork/srv/eng/xml.keyword.get?thesaurus=external.theme.gemet-en&id="
         self.csw = csw.CatalogueServiceWeb(url, username=username, password=password)
         self.records = {}
 
@@ -50,6 +51,8 @@ class UpdateCSW(object):
         self.fieldnames = self.reader.fieldnames
 
         self.namespaces = self.get_namespaces()
+
+        # for etree.xpath function we can't have an empty namespace (None)
         self.namespaces_no_empty = self.namespaces.copy()
         self.namespaces_no_empty.pop(None)
 
@@ -68,11 +71,14 @@ class UpdateCSW(object):
                 "NEW_keywords_theme": self.NEW_keywords_theme,
                 "NEW_keywords_theme_gemet_name": self.NEW_keywords_theme_gemet_name,
                 "NEW_keywords_place": self.NEW_keywords_place,
+                "NEW_keywords_place_geonames": self.NEW_keywords_place_geonames,
                 "NEW_date_publication": self.NEW_date_publication,
                 "NEW_date_revision": self.NEW_date_revision,
                 "DELETE_link": self.DELETE_link,
                 "DELETE_link_no_protocol": self.DELETE_link_no_protocol
             },
+
+            #currently unused
             "dublin-core": {
                 u"NEW_title": self.NEW_title,
                 u"NEW_abstract": self.NEW_abstract
@@ -125,9 +131,6 @@ class UpdateCSW(object):
             "wcs_service": ["OGC:WCS"]
         }
 
-        self.thesaurus_map = {
-            "gemet": "http://www.eionet.europa.eu/gemet"
-        }
 
         self.topic_categories = ['intelligenceMilitary', 'environment',
             'geoscientificinformation', 'elevation', 'utilitiesCommunications',
@@ -163,18 +166,7 @@ class UpdateCSW(object):
         Sets self.record_online_resources to a list of all CI_OnlineResource elements
         """
 
-        self._get_etree_for_record(uuid)
         self.record_online_resources = self.record_etree.findall(self.XPATHS[self.schema]["online_resources"], self.namespaces)
-
-
-    def _get_etree_for_record(self, uuid):
-        """
-        Set self.record_etree to etree ElementTree of record with inputted uuid.
-        """
-
-        xml = self.records[uuid].xml
-        root = etree.fromstring(xml)
-        self.record_etree = etree.ElementTree(root)
 
 
     def _simple_element_update(self,uuid, new_value, xpath=None,element=None):
@@ -191,24 +183,18 @@ class UpdateCSW(object):
         """
 
         if xpath:
-            pn = xpath
+            path = xpath
+        elif element:
+            path = self.XPATHS[self.schema][element]
         else:
-            pn = self.XPATHS[self.schema][element]
-        tt = "update"
-        tn ="csw:Record"
-        pv = new_value
-        ident = str(uuid)
-        t = self.csw.transaction(ttype=tt,
-            typename=tn,
-            propertyname=pn,
-            propertyvalue=pv,
-            identifier=ident)
+            log.error("_simple_element_update: No xpath or element provided")
+            return
 
-        self.row_changed = True
-        log.debug(self.csw.request)
-        log.debug(self.csw.response)
-
-        return True
+        tree = self.record_etree
+        elem = tree.find(path, namespaces=self.namespaces)
+        if elem is not None and elem.text != new_value:
+            elem.text = new_value
+            self.tree_changed = True
 
 
     def _check_for_links_to_update(self, link_type):
@@ -244,6 +230,10 @@ class UpdateCSW(object):
             "{ns}CharacterString".format(ns="{"+self.namespaces["gco"]+"}"),
             nsmap=self.namespaces)
         char_string.text = self.protocol_map[link_type][0]
+        log.debug("#################")
+        log.debug("Added protocol: {prot}".format(prot=char_string.text))
+        log.debug("#################")
+        #log.debug(etree.tostring(self.record_etree))
         return resource
 
 
@@ -259,11 +249,12 @@ class UpdateCSW(object):
 
         for resource in resources_no_protocol:
             if resource.find("gmd:linkage/gmd:URL", namespaces=self.namespaces).text == new_link:
-                self._add_protocol_to_resource(resource, link_type)
-                self.tree_changed = True
+
                 log.debug("updating resource with no protocol")
-                # log.debug(self.csw.request)
-                #log.debug(self.csw.response)
+                self._add_protocol_to_resource(resource, link_type)
+                #log.debug(etree.tostring(self.record_etree))
+                self.tree_changed = True
+
 
     def _create_new_link(self, new_link, link_type):
         """
@@ -309,7 +300,8 @@ class UpdateCSW(object):
 
                 self.tree_changed = True
 
-                log.debug("created new link")
+                log.debug("created new link: {link}".format(link=new_link))
+                #log.debug(etree.tostring(self.record_etree))
                 #log.debug(self.csw.response)
 
         else:
@@ -344,6 +336,7 @@ class UpdateCSW(object):
         """
 
         links = self._current_link_url_elements()
+        log.debug("Current link urls: " + " | ".join([link.text for link in links]))
         return [link.text for link in links]
 
 
@@ -355,7 +348,7 @@ class UpdateCSW(object):
         """
         Base function for updating links
         """
-        tree = self._get_record_and_etree(uuid)
+        tree = self.record_etree
         self._get_links_from_record(uuid)
         record_links = self._current_link_urls()
         #import pdb; pdb.set_trace()
@@ -366,6 +359,7 @@ class UpdateCSW(object):
                 link_type,
                 resources_no_protocol)
 
+        #log.debug(etree.tostring(self.record_etree))
         for i in links_to_update:
             elem = i.find("gmd:linkage/gmd:URL", namespaces=self.namespaces)
             current_val = elem.text
@@ -383,9 +377,11 @@ class UpdateCSW(object):
                 else:
                     log.debug("Updating link from {old} to {new}".format(old=current_val,
                         new=new_link))
-                    value = new_link
+                    elem.text = new_link
                     record_links.append(new_link)
                     record_links.remove(current_val)
+                    self.tree_changed = True
+
                     xpath = self.record_etree.getpath(elem)
                     xpath = "/".join(xpath.split("/")[2:])
 
@@ -394,36 +390,39 @@ class UpdateCSW(object):
                 log.debug("Updating protocol from {old} to {new}".format(old=current_protocol.text,
                     new=self.protocols_list[0]))
                 value = self.protocols_list[0]
+                current_protocol = value
+                self.tree_changed = True
+
                 xpath = self.record_etree.getpath(current_protocol)
                 xpath = "/".join(xpath.split("/")[2:])
 
 
-
-            log.debug("_update_links XPATH: " + xpath)
-
-            self.csw.transaction(ttype="update",
-                typename='csw:Record',
-                propertyname=xpath,
-                propertyvalue=value,
-                identifier=uuid)
-
-            self.row_changed = True
-
-            log.debug(self.csw.request)
-            log.debug(self.csw.response)
+            # log.debug("_update_links XPATH: " + xpath)
+            #
+            # self.csw.transaction(ttype="update",
+            #     typename='csw:Record',
+            #     propertyname=xpath,
+            #     propertyvalue=value,
+            #     identifier=uuid)
+            # time.sleep(2)
+            # self.row_changed = True
+            #
+            # log.debug(self.csw.request)
+            # log.debug(self.csw.response)
 
 
         #if the new url is nowhere to be found, create a new resource
         if new_link not in record_links:
 
+            log.debug("Current links: " + ", ".join(self._current_link_urls()))
             log.debug("Creating a new link")
-            log.debug(self._current_link_urls())
             self._create_new_link(new_link, link_type)
+            log.debug("Updated links: " + ", ".join(self._current_link_urls()))
 
-    def _get_record_and_etree(self, uuid):
-        self.get_record_by_id(uuid)
-        self._get_etree_for_record(uuid)
-        return self.record_etree
+    # def _get_record_and_etree(self, uuid):
+    #     self.get_record_by_id(uuid)
+    #     self.record_etree
+    #     return self.record_etree
 
     def _make_new_multiple_element(self, element_name, value):
         #TODO abstract beyond keywords using element_name
@@ -444,7 +443,7 @@ class UpdateCSW(object):
         if len(new_values_list) == 1 and new_values_list[0] == "":
             return
 
-        tree = self._get_record_and_etree(uuid)
+        tree = self.record_etree
         tree_changed = False
         xpath = self.XPATHS[self.schema][multiple_element_name]
         existing_values = tree.findall(xpath, namespaces=self.namespaces)
@@ -572,7 +571,7 @@ class UpdateCSW(object):
         if len(cat_list) == 1 and cat_list[0] == "":
             return
 
-        tree = self._get_record_and_etree(uuid)
+        tree = self.record_etree
         tree_changed = False
         xpath = self.XPATHS[self.schema]["topic_categories"]
         existing_cats = tree.findall(xpath, namespaces=self.namespaces)
@@ -634,16 +633,15 @@ class UpdateCSW(object):
     def _make_new_keyword_thesaurus_elements(self):
         tree = self.record_etree
         dk = tree.findall(self.XPATHS[self.schema]["descriptive_keywords"], namespaces=self.namespaces)
-        thesaurus = etree.parse("snippet_thesaurus_gemet.xml")
+        thesaurus = etree.parse("xml_snippets/thesaurus_gemet.xml")
         dk[-1].addnext(thesaurus.getroot())
         return dk[-1].getnext().find("gmd:MD_Keywords", namespaces=self.namespaces)
 
+
     def _make_new_keyword_anchor(self, value, uri, parent_node):
-        #<gmx:Anchor xlink:href="http://www.rvdata.us/voc/port#101065">Pearl Harbor, HI</gmx:Anchor>
-        gemet_anchor_base_uri = "https://geonet.lib.umn.edu:80/geonetwork/srv/eng/xml.keyword.get?thesaurus=external.theme.gemet-en&id="
         element = etree.Element("{ns}keyword".format(ns="{"+self.namespaces["gmd"]+"}"), nsmap=self.namespaces)
         child_element = etree.SubElement(element,"{ns}Anchor".format(ns="{"+self.namespaces["gmx"]+"}"))
-        child_element.set("{"+ self.namespaces["xlink"]+"}href", gemet_anchor_base_uri + uri)
+        child_element.set("{"+ self.namespaces["xlink"]+"}href", self.GEMET_ANCHOR_BASE_URI + uri)
         child_element.text = value
         parent_node.insert(0, element)
 
@@ -661,7 +659,7 @@ class UpdateCSW(object):
             len(new_ids_list) == 1 and new_ids_list[0] == "":
             return
 
-        tree = self._get_record_and_etree(uuid)
+        tree = self.record_etree
         tree_changed = False
         thesaurus_xpath = self.XPATHS[self.schema]["keywords_theme_gemet"]
         existing_thesaurus = tree.xpath(thesaurus_xpath, namespaces=self.namespaces_no_empty)
@@ -710,6 +708,12 @@ class UpdateCSW(object):
     def NEW_keywords_theme_gemet_name(self, uuid, gemet_names):
         gemet_ids = self.row["NEW_keywords_theme_gemet_id"]
         self._keywords_theme_gemet_update(uuid, gemet_names, gemet_ids)
+        log.debug("updated gemet keywords")
+
+
+    def NEW_keywords_place_geonames(self, uuid, geonames):
+        log.debug("updated geonames keywords (but not really)")
+
 
 
     def _date_or_datetime(self,date_element):
@@ -751,27 +755,24 @@ class UpdateCSW(object):
             nsmap=self.namespaces)
         self._add_gcodate_to_date(date_elem2, new_date)
 
-    def _check_for_nilreason(self, date_elem):
+    def _check_for_and_remove_nilreason(self, elem):
         nil_attrib = "{gco}nilReason".format(gco="{"+self.namespaces["gco"]+"}")
-        nil = date_elem.get(nil_attrib)
+        nil = elem.get(nil_attrib)
         if nil is not None:
-            date_elem.attrib.pop(nil_attrib)
+            elem.attrib.pop(nil_attrib)
         self.tree_changed = True
 
     def _update_date(self, uuid, new_date, date_type):
-        # xpath = self.XPATHS[self.schema][date_type]
-        # xpath = "gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:DateTime";
-        # xpath = "gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date[gmd:dateType/gmd:CI_DateTypeCode/@codeListValue='publication']/gmd:date/gco:Date"
         xpath = "gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date[gmd:dateType/gmd:CI_DateTypeCode/@codeListValue='publication']/gmd:date";
         new_date_parsed = parser.parse(new_date)
         iso_date = new_date_parsed.isoformat()[:10]
-        tree = self._get_record_and_etree(uuid)
+        tree = self.record_etree
 
         date_element = tree.xpath(xpath,
             namespaces=self.namespaces_no_empty)
 
         if len(date_element) >= 1:
-            self._check_for_nilreason(date_element[0])
+            self._check_for_and_remove_nilreason(date_element[0])
             date_type_elem = self._date_or_datetime(date_element[0])
             if date_type_elem is not None:
 
@@ -789,7 +790,7 @@ class UpdateCSW(object):
             if len(citation_element) >= 1:
                 date_elem = citation_element[0].find("gmd:date", namespaces=self.namespaces)
                 if date_elem is not None:
-                    self._check_for_nilreason(date_elem)
+                    self._check_for_and_remove_nilreason(date_elem)
                     date_children = date_elem.getchildren()
 
                     if len(date_children) == 0:
@@ -828,7 +829,7 @@ class UpdateCSW(object):
     def update_timestamp(self, uuid):
         ts = datetime.now().isoformat()
         val = ts
-        tree = self._get_record_and_etree(uuid)
+        tree = self.record_etree
         pn = self.XPATHS[self.schema]["timestamp"] + "/gco:DateTime"
         dateStamp = tree.find(pn, namespaces=self.namespaces)
 
@@ -844,18 +845,32 @@ class UpdateCSW(object):
             identifier=uuid)
 
 
-    def get_record_by_id(self, uuid):
+    def _get_etree_for_record(self, uuid):
+        """
+        Set self.record_etree to etree ElementTree of record with inputted uuid.
+        """
 
-        # if self.records.has_key(uuid):
-        #     return
+        xml = self.records[uuid].xml
+        root = etree.fromstring(xml)
+        return etree.ElementTree(root)
+
+
+    def get_record_by_id(self, uuid):
+        """
+        Requests a record via the provided uuid. Sets self.records[uuid] to the result. Returns nothing.
+        """
 
         if self.schema == "iso19139":
             outschema = "http://www.isotc211.org/2005/gmd"
+            log.debug("get_record_by_id: requesting fresh XML.")
             self.csw.getrecordbyid(id=[str(uuid)], outputschema=outschema)
+            time.sleep(1)
             if self.csw.records.has_key(uuid):
+                log.debug("get_record_by_id: got the xml")
                 self.records[uuid] = self.csw.records[uuid]
 
         else:
+            # unused Dublin Core hack for dc:identifiers that are URIs
             outschema = "http://www.opengis.net/cat/csw/2.0.2"
             xml_text = """<csw:GetRecords xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" xmlns:ogc="http://www.opengis.net/ogc" service="CSW" version="2.0.2" resultType="results" startPosition="1" maxRecords="10" outputFormat="application/xml" outputSchema="http://www.opengis.net/cat/csw/2.0.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/cat/csw/2.0.2 http://schemas.opengis.net/csw/2.0.2/CSW-discovery.xsd" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:apiso="http://www.opengis.net/cat/csw/apiso/1.0">
               <csw:Query typeNames="csw:Record">
@@ -873,26 +888,43 @@ class UpdateCSW(object):
             self.csw.getrecords2(xml=xml_text)
             self.records[uuid] = self.csw.records.items()[0][1]
 
+
     def process_spreadsheet(self):
+        """
+        Iterates through the inputted CSV, detects NEW_ fields, and executes
+        update functions as needed.
+        """
+
         for row in self.reader:
-
-            #TODO add check for NEW_topic_categories or NEW_keywords_* that will
-            #prevent transaction until all updates made to local etree, which may
-            #slow things down. Maybe not.
-            #log.debug(row)
-
+            log.debug(row)
             self.row_changed = False
             self.tree_changed = False
+            self.record_etree = False
+
             self.row = row
-            self.uuid = row["uuid"]
-            if self.uuid == "DELETED":
+            if row.has_key("uuid"):
+                self.uuid = row["uuid"]
+            elif row.has_key("UUID"):
+                self.uuid = row["UUID"]
+            else:
+                sys.exit("No uuid column found. Must be named uuid or UUID.")
+
+            if self.uuid == "DELETED" or self.uuid == "SKIP":
                 continue
 
             log.debug(self.uuid)
-            self.schema = row["schema"]
+
+            if row.has_key("schema"):
+                self.schema = row["schema"]
+            else:
+                log.info("No 'schema' column. Defaulting to iso19139.")
+                self.schema = "iso19139"
+
+            self.get_record_by_id(self.uuid)
+            self.record_etree = self._get_etree_for_record(self.uuid)
 
             for field in self.fieldnames:
-                if field == "uuid":
+                if field.lower() == "uuid":
                     continue
 
                 if field in self.field_handlers[self.schema] and row.has_key(field):
@@ -900,25 +932,28 @@ class UpdateCSW(object):
 
             if self.records.has_key(self.uuid) and self.tree_changed:
                 log.debug("replacing entire XML")
+                new_xml = etree.tostring(self.record_etree)
+                #log.debug(new_xml)
                 self.row_changed = True
                 t = self.csw.transaction(ttype="update",
                     typename='csw:Record',
-                    record=etree.tostring(self.record_etree),
+                    record=new_xml,
                     identifier=self.uuid)
-                log.debug(self.csw.request)
-                log.debug(self.csw.response)
+                #log.debug(self.csw.request)
+                #log.debug(self.csw.response)
                 time.sleep(2)
+                log.info("Updated: {uuid}\n\n\n".format(uuid=self.uuid))
+            else:
+                log.info("No change: {uuid}\n\n\n".format(uuid=self.uuid))
 
-
-            if self.row_changed:
-               self.update_timestamp(self.uuid)
-               log.info("Updated: {uuid}".format(uuid=self.uuid))
+            # if self.row_changed:
+            #    self.update_timestamp(self.uuid)
 
 
 
 def main():
     parser = argparse.ArgumentParser( formatter_class=argparse.RawDescriptionHelpFormatter,
-        description=open("FIELDS.md","rU").read())
+        description=open("README.md","rU").read())
     parser.add_argument("input_csv",help="indicate path to the csv containing the updates")
     args = parser.parse_args()
     f = UpdateCSW(CSW_URL, USER, PASSWORD, args.input_csv)

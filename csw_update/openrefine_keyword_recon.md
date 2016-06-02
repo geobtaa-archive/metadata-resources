@@ -1,3 +1,5 @@
+# Using OpenRefine for geometadata keyword reconciliation
+OpenRefine is an amazing tool for data clean-up. Of particular interest to metadata-ists is its ability to leverage controlled vocabularies.
 ##Install OpenRefine 2.6
 
 ##Add RDF extension 0.9
@@ -40,3 +42,42 @@ cell.recon.match.name
 Edit column -> Add column based on this column
 call it NEW_keywords_theme_gemet_id
 cell.recon.match.id
+
+
+## geoparsing abstracts for placenames
+
+Install Vagrant using the appropriate download from [here](https://www.vagrantup.com/downloads.html). **Don't** use your system's package manager.
+
+Clone [CLIFF-up](https://github.com/c4fcm/CLIFF-up) repository and follow the excellent instructions to get CLIFF running.
+
+Click the caret to the left of the column you want to geoparse, then **Edit Column** and then **Add column by fetching URLs...**
+
+Name it <original column name>_geoparsed. I'll use `abstract` and `abstract_geoparsed` in these directions.
+
+Lower the throttling from 5000 ms to something much lower, like 500ms. We're working locally, so no need to space requests out too much.
+
+Set the value equal to:
+
+```
+"http://localhost:8999/cliff-2.3.0/parse/text?q=" + escape(value,"url")
+```
+
+and let it crank. 
+
+When it's done:
+
+Add a new column based on `abstract_geoparsed` and call it `NEW_keywords_place_geonames`
+
+join(
+    uniques(
+        forEach(
+            parseJson(row.cells.abstract_geoparsed.value).results.places.mentions, 
+            mention, 
+            mention.name+"|http://sws.geonames.org/"+mention.id+"/about.rdf"
+        )
+    ), "###"
+)
+
+
+
+

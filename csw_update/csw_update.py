@@ -74,6 +74,9 @@ class UpdateCSW(object):
                 "NEW_keywords_place_geonames": self.NEW_keywords_place_geonames,
                 "NEW_date_publication": self.NEW_date_publication,
                 "NEW_date_revision": self.NEW_date_revision,
+                "NEW_temporal_end": self.NEW_temporal_end,
+                "NEW_temporal_start": self.NEW_temporal_start,
+                "NEW_temporal_instant": self.NEW_temporal_instant,
                 "DELETE_link": self.DELETE_link,
                 "DELETE_link_no_protocol": self.DELETE_link_no_protocol
             },
@@ -111,9 +114,11 @@ class UpdateCSW(object):
                 "topic_categories"                : "gmd:identificationInfo/gmd:MD_DataIdentification/gmd:topicCategory/gmd:MD_TopicCategoryCode",
                 "abstract"                        :"gmd:identificationInfo/gmd:MD_DataIdentification/gmd:abstract/gco:CharacterString",
                 "purpose"                         :"gmd:identificationInfo/gmd:MD_DataIdentification/gmd:purpose/gco:CharacterString",
-                "temporalextent_period_start"     :"gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:temporalElement/gmd:EX_TemporalExtent/gmd:extent/gml:TimePeriod/gml:beginPosition",
-                "temporalextent_period_end"       :"gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:temporalElement/gmd:EX_TemporalExtent/gmd:extent/gml:TimePeriod/gml:endPosition",
-                "temporalextent_instant"          :"gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:temporalElement/gmd:EX_TemporalExtent/gmd:extent/gml:TimeInstant/gml:timePosition"
+                "extent"                          :"gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent",
+                "temporalextent"                  :"gmd:identificationInfo/gmd:MD_DataIdentification/gmd:extent/gmd:EX_Extent/gmd:temporalElement",
+                "temporalextent_start"     :"gmd:EX_TemporalExtent/gmd:extent/gml:TimePeriod/gml:beginPosition",
+                "temporalextent_end"       :"gmd:EX_TemporalExtent/gmd:extent/gml:TimePeriod/gml:endPosition",
+                "temporalextent_instant"          :"gmd:EX_TemporalExtent/gmd:extent/gml:TimeInstant/gml:timePosition"
                 #"link_information"                :"gmd:distributionInfo/gmd:MD_Distribution/gmd:transferOptions/gmd:MD_DigitalTransferOptions/gmd:onLine/gmd:CI_OnlineResource/gmd:protocol/gco:CharacterString[text()='WWW:LINK'"
             },
 
@@ -192,9 +197,12 @@ class UpdateCSW(object):
 
         tree = self.record_etree
         elem = tree.find(path, namespaces=self.namespaces)
-        if elem is not None and elem.text != new_value:
-            elem.text = new_value
-            self.tree_changed = True
+        if elem is not None:
+            if elem.text != new_value:
+                elem.text = new_value
+                self.tree_changed = True
+            else:
+                log.info("Value for \n {p} \n already set to: {v}".format(p=path.split("/")[-2],v=new_value))
 
 
     def _check_for_links_to_update(self, link_type):
@@ -230,9 +238,8 @@ class UpdateCSW(object):
             "{ns}CharacterString".format(ns="{"+self.namespaces["gco"]+"}"),
             nsmap=self.namespaces)
         char_string.text = self.protocol_map[link_type][0]
-        log.debug("#################")
         log.debug("Added protocol: {prot}".format(prot=char_string.text))
-        log.debug("#################")
+
         #log.debug(etree.tostring(self.record_etree))
         return resource
 
@@ -495,7 +502,7 @@ class UpdateCSW(object):
         """
         Updates abstract of record
         """
-        if new_abstract != "":
+        if new_abstract != "" and new_abstract != "SKIP":
             update = self._simple_element_update(uuid, new_abstract, element="abstract")
             log.info("updated abstract")
 
@@ -503,7 +510,7 @@ class UpdateCSW(object):
         """
         Updates abstract of record
         """
-        if new_format != "":
+        if new_format != "" and new_format != "SKIP":
             update = self._simple_element_update(uuid, new_format, element="distribution_format")
             log.info("updated distribution format")
 
@@ -511,28 +518,28 @@ class UpdateCSW(object):
         """
         Updates title of record
         """
-        if new_title != "":
+        if new_title != "" and new_title != "SKIP":
             update = self._simple_element_update(uuid, new_title, element="title")
             log.info("updated title")
 
 
     def NEW_link_download(self, uuid, new_link):
-        if new_link != "":
+        if new_link != "" and new_link != "SKIP":
             update = self._update_links(uuid, new_link, "download")
             log.info("updated download link")
 
     def NEW_link_service_esri(self, uuid, new_link):
-        if new_link != "":
+        if new_link != "" and new_link != "SKIP":
             update = self._update_links(uuid, new_link, "esri_service")
             log.info("updated esri_service link")
 
     def NEW_link_service_wms(self, uuid, new_link):
-        if new_link != "":
+        if new_link != "" and new_link != "SKIP":
             update = self._update_links(uuid, new_link, "wms_service")
             log.info("updated wms_service link")
 
     def NEW_link_information(self, uuid, new_link):
-        if new_link != "":
+        if new_link != "" and new_link != "SKIP":
             update = self._update_links(uuid, new_link, "information")
             log.info("updated info link")
 
@@ -708,7 +715,7 @@ class UpdateCSW(object):
     def NEW_keywords_theme_gemet_name(self, uuid, gemet_names):
         gemet_ids = self.row["NEW_keywords_theme_gemet_id"]
         self._keywords_theme_gemet_update(uuid, gemet_names, gemet_ids)
-        log.debug("updated gemet keywords")
+        log.info("updated gemet keywords")
 
 
     def NEW_keywords_place_geonames(self, uuid, geonames):
@@ -733,9 +740,9 @@ class UpdateCSW(object):
             "{ns}CI_DateTypeCode".format(ns="{"+self.namespaces["gmd"]+"}"),
             nsmap=self.namespaces)
         datetypecode.set("codeList","http://www.isotc211.org/2005/resources/Codelist/gmxCodelists.xml#CI_DateTypeCode")
-        datetypecode.set("codeListValue", date_type.replace("date_",""))
+        datetypecode.set("codeListValue", date_type)
         datetypecode.set("codeSpace","002")
-        datetypecode.text = date_type.replace("date_","")
+        datetypecode.text = date_type
 
     def _add_datetype_to_date(self, ci_date, date_type):
         datetype = etree.SubElement(ci_date,
@@ -750,7 +757,7 @@ class UpdateCSW(object):
             nsmap=self.namespaces)
         self._add_datetype_to_date(ci_date, date_type)
 
-        date_elem2 =  etree.SubElement(ci_date,
+        date_elem2 = etree.SubElement(ci_date,
             "{ns}date".format(ns="{"+self.namespaces["gmd"]+"}"),
             nsmap=self.namespaces)
         self._add_gcodate_to_date(date_elem2, new_date)
@@ -763,7 +770,8 @@ class UpdateCSW(object):
         self.tree_changed = True
 
     def _update_date(self, uuid, new_date, date_type):
-        xpath = "gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date[gmd:dateType/gmd:CI_DateTypeCode/@codeListValue='publication']/gmd:date";
+        #TODO get this xpath outta here
+        xpath = "gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date[gmd:dateType/gmd:CI_DateTypeCode/@codeListValue='{datetype}']/gmd:date".format(datetype=date_type);
         new_date_parsed = parser.parse(new_date)
         iso_date = new_date_parsed.isoformat()[:10]
         tree = self.record_etree
@@ -772,30 +780,50 @@ class UpdateCSW(object):
             namespaces=self.namespaces_no_empty)
 
         if len(date_element) >= 1:
+            log.debug("Found date element with matching type in citation")
             self._check_for_and_remove_nilreason(date_element[0])
             date_type_elem = self._date_or_datetime(date_element[0])
             if date_type_elem is not None:
-
-                xpath = tree.getpath(date_type_elem)
-                self._simple_element_update(uuid, new_date, xpath=xpath)
+                if date_type_elem.tag.endswith("Date"):
+                    date_type_elem.text = iso_date
+                    self.tree_changed = True
+                elif date_type_elem.tag.endswith("DateTime"):
+                    date_type_elem.text = new_date_parsed.isoformat()+"Z"
+                    self.tree_changed = True
             else:
+                log.debug("Did not find date type in date element. Creating gco:Date.")
                 self._add_gcodate_to_date(date_element[0], iso_date)
                 self.tree_changed = True
         else:
+            log.debug("No date element matching type found, looking for Citation.")
             # look for ancestor date element
             citation_xpath = self.XPATHS[self.schema]["citation"]
             citation_element = tree.xpath(citation_xpath,
                 namespaces=self.namespaces_no_empty)
 
             if len(citation_element) >= 1:
+                log.debug("Found Citation")
                 date_elem = citation_element[0].find("gmd:date", namespaces=self.namespaces)
                 if date_elem is not None:
+                    log.debug("Found date in citation")
                     self._check_for_and_remove_nilreason(date_elem)
                     date_children = date_elem.getchildren()
 
                     if len(date_children) == 0:
                         self._create_date(date_elem, iso_date, date_type)
                         self.tree_changed = True
+                    else:
+                        ci_date = date_elem.find("gmd:CI_Date", namespaces=self.namespaces)
+
+                        if ci_date is None:
+                            log.debug("date is malformed.")
+                            [date_elem.remove(i) for i in date_children]
+                            self._create_date(date_elem, iso_date, date_type)
+                            self.tree_changed = True
+                        elif ci_date.find("gmd:dateType", namespaces=self.namespaces) is None:
+                            self._add_datetype_to_date(ci_date, date_type)
+
+
                 else:
                     date_elem = etree.SubElement(citation_element[0],
                         "{ns}date".format(ns="{"+self.namespaces["gmd"]+"}"),
@@ -804,16 +832,94 @@ class UpdateCSW(object):
                     self.tree_changed = True
 
 
+    def _parse_snippet(self, snippet_name, path_to_snippet="xml_snippets"):
+        snippet_tree = etree.parse(os.path.join(path_to_snippet, snippet_name))
+        snippet_root = snippet_tree.getroot()
+        return snippet_root
+
+    def _add_extent(self):
+        existing_extent = self.record_etree.xpath(self.XPATHS[self.schema]["extent"], namespaces=self.namespaces_no_empty)
+        last_extent = existing_extent[-1]
+        new_extent = etree.Element("{ns}extent".format(ns="{"+self.namespaces["gmd"]+"}"), nsmap=self.namespaces)
+        ex_extent = etree.SubElement(new_extent, "{ns}EX_Extent".format(ns="{"+self.namespaces["gmd"]+"}"), nsmap=self.namespaces)
+        last_extent.addnext(new_extent)
+        log.debug("Added new extent.")
+        return ex_extent
+
+
+    def _add_temporal_extent(self, new_date, ex_extent, temporal_extent_type):
+        if temporal_extent_type == "start" or temporal_extent_type == "end":
+            temporal_extent_base = self._parse_snippet("extent_temporal_range.xml")
+        else:
+            temporal_extent_base = self._parse_snippet("extent_temporal_instant.xml")
+        ex_extent.append(temporal_extent_base)
+        log.debug("added temporal extent. recursing to set value")
+        self.tree_changed = True
+        self._update_temporal_extent(new_date, temporal_extent_type)
+
+
+    def _update_temporal_extent(self, new_date, temporal_extent_type):
+
+        if new_date != "now":
+            new_date_parsed = parser.parse(new_date)
+            iso_date = new_date_parsed.isoformat()[:10]
+        else:
+            iso_date = "now"
+
+        tree = self.record_etree
+
+        xpath = self.XPATHS[self.schema]["temporalextent"]
+        temporalextent = tree.xpath(xpath,
+            namespaces=self.namespaces_no_empty)
+
+        if len(temporalextent) >= 1:
+            te = temporalextent[0]
+            xpath = self.XPATHS[self.schema]["temporalextent_" + temporal_extent_type]
+            log.debug(xpath)
+            #import pdb; pdb.set_trace()
+            te_elem = te.find(xpath, namespaces=self.namespaces)
+            if te_elem is not None:
+                te_elem.text = iso_date
+                log.debug("found and updated temporal extent: {iso}".format(iso=iso_date))
+                self.tree_changed = True
+            else:
+                p_ex_extent = te.getparent()
+                p_ex_extent.remove(te)
+                log.debug("adding temporal extent to existing extent")
+                self._add_temporal_extent(new_date, p_ex_extent, temporal_extent_type)
+        else:
+            ex_extent = self._add_extent()
+            self._add_temporal_extent(new_date, ex_extent, temporal_extent_type)
+
+
     def NEW_date_publication(self, uuid, new_date):
         if new_date != "":
-            update = self._update_date(uuid, new_date, "date_publication")
+            update = self._update_date(uuid, new_date, "publication")
             log.info("updated publication date!")
 
 
     def NEW_date_revision(self, uuid, new_date):
         if new_date != "":
-            update = self._update_date(uuid, new_date, "date_revision")
+            update = self._update_date(uuid, new_date, "revision")
             log.info("updated revision date!")
+
+
+
+
+    def NEW_temporal_start(self, uuid, new_date):
+        if new_date != "":
+            update = self._update_temporal_extent(new_date, "start")
+            log.info("updated temporal start date!")
+
+    def NEW_temporal_end(self, uuid, new_date):
+        if new_date != "":
+            update = self._update_temporal_extent(new_date, "end")
+            log.info("updated temporal end date!")
+
+    def NEW_temporal_instant(self, uuid, new_date):
+        if new_date != "":
+            update = self._update_temporal_extent(new_date, "instant")
+            log.info("updated temporal instant date!")
 
 
     def NEW_contact_organization(self):
@@ -933,7 +1039,6 @@ class UpdateCSW(object):
             if self.records.has_key(self.uuid) and self.tree_changed:
                 log.debug("replacing entire XML")
                 new_xml = etree.tostring(self.record_etree)
-                #log.debug(new_xml)
                 self.row_changed = True
                 t = self.csw.transaction(ttype="update",
                     typename='csw:Record',
@@ -945,10 +1050,6 @@ class UpdateCSW(object):
                 log.info("Updated: {uuid}\n\n\n".format(uuid=self.uuid))
             else:
                 log.info("No change: {uuid}\n\n\n".format(uuid=self.uuid))
-
-            # if self.row_changed:
-            #    self.update_timestamp(self.uuid)
-
 
 
 def main():

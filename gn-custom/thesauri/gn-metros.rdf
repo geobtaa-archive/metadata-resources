@@ -1,0 +1,348 @@
+<rdf:RDF xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:cc="http://creativecommons.org/ns#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:gn="http://www.geonames.org/ontology#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#"
+    xmlns="http://www.geonames.org/ontology#">
+    <skos:ConceptScheme rdf:about="http://geonetwork-opensource.org/gemet">
+        <dc:title>U.S. Metropolitan Areas - GeoNames</dc:title>
+        <dc:description>Metropolitan Areas of the United States, drawn from the GeoNames
+            database. </dc:description>
+    </skos:ConceptScheme>
+
+    <skos:Concept rdf:about="http://sws.geonames.org/6955109/">
+        <rdfs:isDefinedBy rdf:resource="http://sws.geonames.org/6955109/about.rdf"/>
+        <gn:name>Atlanta-Sandy Springs-Marietta</gn:name>
+        <gn:featureClass rdf:resource="http://www.geonames.org/ontology#L"/>
+        <gn:featureCode rdf:resource="http://www.geonames.org/ontology#L.RGNE"/>
+        <gn:countryCode>US</gn:countryCode>
+        <gn:population>5376285</gn:population>
+        <wgs84_pos:lat>33.73119</wgs84_pos:lat>
+        <wgs84_pos:long>-84.38324</wgs84_pos:long>
+        <gn:parentCountry rdf:resource="http://sws.geonames.org/6252001/"/>
+        <gn:nearbyFeatures rdf:resource="http://sws.geonames.org/6955109/nearby.rdf"/>
+        <gn:locationMap
+            rdf:resource="http://www.geonames.org/6955109/atlanta-sandy-springs-marietta.html"/>
+        <skos:prefLabel xml:lang="en">Atlanta-Sandy Springs-Marietta</skos:prefLabel>
+    </skos:Concept>
+    <skos:Concept rdf:about="http://sws.geonames.org/6955111/">
+        <rdfs:isDefinedBy rdf:resource="http://sws.geonames.org/6955111/about.rdf"/>
+        <gn:name>Boston-Cambridge-Quincy</gn:name>
+        <gn:featureClass rdf:resource="http://www.geonames.org/ontology#L"/>
+        <gn:featureCode rdf:resource="http://www.geonames.org/ontology#L.RGNE"/>
+        <gn:countryCode>US</gn:countryCode>
+        <gn:population>4522858</gn:population>
+        <wgs84_pos:lat>42.35347</wgs84_pos:lat>
+        <wgs84_pos:long>-71.06094</wgs84_pos:long>
+        <gn:parentCountry rdf:resource="http://sws.geonames.org/6252001/"/>
+        <gn:nearbyFeatures rdf:resource="http://sws.geonames.org/6955111/nearby.rdf"/>
+        <gn:locationMap rdf:resource="http://www.geonames.org/6955111/boston-cambridge-quincy.html"/>
+        <skos:prefLabel xml:lang="en">Boston-Cambridge-Quincy</skos:prefLabel>
+    </skos:Concept>
+    <skos:Concept rdf:about="http://sws.geonames.org/6955120/">
+        <rdfs:isDefinedBy rdf:resource="http://sws.geonames.org/6955120/about.rdf"/>
+        <gn:name>Baltimore-Towson</gn:name>
+        <gn:featureClass rdf:resource="http://www.geonames.org/ontology#L"/>
+        <gn:featureCode rdf:resource="http://www.geonames.org/ontology#L.RGNE"/>
+        <gn:countryCode>US</gn:countryCode>
+        <gn:population>2667117</gn:population>
+        <wgs84_pos:lat>39.28808</wgs84_pos:lat>
+        <wgs84_pos:long>-76.61076</wgs84_pos:long>
+        <gn:parentCountry rdf:resource="http://sws.geonames.org/6252001/"/>
+        <gn:nearbyFeatures rdf:resource="http://sws.geonames.org/6955120/nearby.rdf"/>
+        <gn:locationMap rdf:resource="http://www.geonames.org/6955120/baltimore-towson.html"/>
+        <skos:prefLabel xml:lang="en">Baltimore-Towson</skos:prefLabel>
+    </skos:Concept>
+    <skos:Concept rdf:about="http://sws.geonames.org/6955104/">
+        <rdfs:isDefinedBy rdf:resource="http://sws.geonames.org/6955104/about.rdf"/>
+        <gn:name>Chicago-Naperville-Joliet</gn:name>
+        <gn:featureClass rdf:resource="http://www.geonames.org/ontology#L"/>
+        <gn:featureCode rdf:resource="http://www.geonames.org/ontology#L.RGNE"/>
+        <gn:countryCode>US</gn:countryCode>
+        <gn:population>9569624</gn:population>
+        <wgs84_pos:lat>41.70778</wgs84_pos:lat>
+        <wgs84_pos:long>-87.89062</wgs84_pos:long>
+        <gn:parentCountry rdf:resource="http://sws.geonames.org/6252001/"/>
+        <gn:nearbyFeatures rdf:resource="http://sws.geonames.org/6955104/nearby.rdf"/>
+        <gn:locationMap
+            rdf:resource="http://www.geonames.org/6955104/chicago-naperville-joliet.html"/>
+        <skos:prefLabel xml:lang="en">Chicago-Naperville-Joliet</skos:prefLabel>
+    </skos:Concept>
+    <skos:Concept rdf:about="http://sws.geonames.org/6955105/">
+        <rdfs:isDefinedBy rdf:resource="http://sws.geonames.org/6955105/about.rdf"/>
+        <gn:name>Dallas-Fort Worth-Arlington</gn:name>
+        <gn:featureClass rdf:resource="http://www.geonames.org/ontology#L"/>
+        <gn:featureCode rdf:resource="http://www.geonames.org/ontology#L.RGNE"/>
+        <gn:countryCode>US</gn:countryCode>
+        <gn:population>6300006</gn:population>
+        <wgs84_pos:lat>32.76303</wgs84_pos:lat>
+        <wgs84_pos:long>-97.03262</wgs84_pos:long>
+        <gn:parentCountry rdf:resource="http://sws.geonames.org/6252001/"/>
+        <gn:nearbyFeatures rdf:resource="http://sws.geonames.org/6955105/nearby.rdf"/>
+        <gn:locationMap
+            rdf:resource="http://www.geonames.org/6955105/dallas-fort-worth-arlington.html"/>
+        <skos:prefLabel xml:lang="en">Dallas-Fort Worth-Arlington</skos:prefLabel>
+    </skos:Concept>
+    <skos:Concept rdf:about="http://sws.geonames.org/6955112/">
+        <rdfs:isDefinedBy rdf:resource="http://sws.geonames.org/6955112/about.rdf"/>
+        <gn:name>Detroit-Warren-Livonia</gn:name>
+        <gn:featureClass rdf:resource="http://www.geonames.org/ontology#L"/>
+        <gn:featureCode rdf:resource="http://www.geonames.org/ontology#L.RGNE"/>
+        <gn:countryCode>US</gn:countryCode>
+        <gn:population>4425110</gn:population>
+        <wgs84_pos:lat>42.34231</wgs84_pos:lat>
+        <wgs84_pos:long>-83.07175</wgs84_pos:long>
+        <gn:parentCountry rdf:resource="http://sws.geonames.org/6252001/"/>
+        <gn:nearbyFeatures rdf:resource="http://sws.geonames.org/6955112/nearby.rdf"/>
+        <gn:locationMap rdf:resource="http://www.geonames.org/6955112/detroit-warren-livonia.html"/>
+        <skos:prefLabel xml:lang="en">Detroit-Warren-Livonia</skos:prefLabel>
+    </skos:Concept>
+    <skos:Concept rdf:about="http://sws.geonames.org/6949555/">
+        <rdfs:isDefinedBy rdf:resource="http://sws.geonames.org/6949555/about.rdf"/>
+        <gn:name>Disney&#8217;s Hollywood Studios</gn:name>
+        <gn:featureClass rdf:resource="http://www.geonames.org/ontology#L"/>
+        <gn:featureCode rdf:resource="http://www.geonames.org/ontology#L.RGNE"/>
+        <gn:countryCode>US</gn:countryCode>
+        <wgs84_pos:lat>28.3583</wgs84_pos:lat>
+        <wgs84_pos:long>-81.5589</wgs84_pos:long>
+        <gn:parentCountry rdf:resource="http://sws.geonames.org/6252001/"/>
+        <gn:nearbyFeatures rdf:resource="http://sws.geonames.org/6949555/nearby.rdf"/>
+        <gn:locationMap
+            rdf:resource="http://www.geonames.org/6949555/disney-s-hollywood-studios.html"/>
+        <gn:wikipediaArticle
+            rdf:resource="http://en.wikipedia.org/wiki/Disney%27s_Hollywood_Studios"/>
+        <rdfs:seeAlso rdf:resource="http://dbpedia.org/resource/Disney%27s_Hollywood_Studios"/>
+        <skos:prefLabel xml:lang="en">Disney&#8217;s Hollywood Studios</skos:prefLabel>
+    </skos:Concept>
+    <skos:Concept rdf:about="http://sws.geonames.org/6955103/">
+        <rdfs:isDefinedBy rdf:resource="http://sws.geonames.org/6955103/about.rdf"/>
+        <gn:name>Los Angeles-Long Beach-Santa Ana</gn:name>
+        <gn:featureClass rdf:resource="http://www.geonames.org/ontology#L"/>
+        <gn:featureCode rdf:resource="http://www.geonames.org/ontology#L.RGNE"/>
+        <gn:countryCode>US</gn:countryCode>
+        <gn:population>12872808</gn:population>
+        <wgs84_pos:lat>33.88638</wgs84_pos:lat>
+        <wgs84_pos:long>-118.04535</wgs84_pos:long>
+        <gn:parentCountry rdf:resource="http://sws.geonames.org/6252001/"/>
+        <gn:nearbyFeatures rdf:resource="http://sws.geonames.org/6955103/nearby.rdf"/>
+        <gn:locationMap
+            rdf:resource="http://www.geonames.org/6955103/los-angeles-long-beach-santa-ana.html"/>
+        <skos:prefLabel xml:lang="en">Los Angeles-Long Beach-Santa Ana</skos:prefLabel>
+    </skos:Concept>
+    <skos:Concept rdf:about="http://sws.geonames.org/6955117/">
+        <rdfs:isDefinedBy rdf:resource="http://sws.geonames.org/6955117/about.rdf"/>
+        <gn:name>Minneapolis-St. Paul-Bloomington</gn:name>
+        <gn:featureClass rdf:resource="http://www.geonames.org/ontology#L"/>
+        <gn:featureCode rdf:resource="http://www.geonames.org/ontology#L.RGNE"/>
+        <gn:countryCode>US</gn:countryCode>
+        <gn:population>3229878</gn:population>
+        <wgs84_pos:lat>44.95751</wgs84_pos:lat>
+        <wgs84_pos:long>-93.17848</wgs84_pos:long>
+        <gn:parentCountry rdf:resource="http://sws.geonames.org/6252001/"/>
+        <gn:nearbyFeatures rdf:resource="http://sws.geonames.org/6955117/nearby.rdf"/>
+        <gn:locationMap
+            rdf:resource="http://www.geonames.org/6955117/minneapolis-st-paul-bloomington.html"/>
+        <gn:wikipediaArticle
+            rdf:resource="http://en.wikipedia.org/wiki/Minneapolis%E2%80%93Saint_Paul"/>
+        <rdfs:seeAlso rdf:resource="http://dbpedia.org/resource/Minneapolis%E2%80%93Saint_Paul"/>
+        <skos:prefLabel xml:lang="en">Minneapolis-St. Paul-Bloomington</skos:prefLabel>
+    </skos:Concept>
+    <skos:Concept rdf:about="http://sws.geonames.org/6955108/">
+        <rdfs:isDefinedBy rdf:resource="http://sws.geonames.org/6955108/about.rdf"/>
+        <gn:name>Miami-Fort Lauderdale-Pompano Beach</gn:name>
+        <gn:featureClass rdf:resource="http://www.geonames.org/ontology#L"/>
+        <gn:featureCode rdf:resource="http://www.geonames.org/ontology#L.RGNE"/>
+        <gn:countryCode>US</gn:countryCode>
+        <gn:population>5414772</gn:population>
+        <wgs84_pos:lat>26.00002</wgs84_pos:lat>
+        <wgs84_pos:long>-80.1947</wgs84_pos:long>
+        <gn:parentCountry rdf:resource="http://sws.geonames.org/6252001/"/>
+        <gn:nearbyFeatures rdf:resource="http://sws.geonames.org/6955108/nearby.rdf"/>
+        <gn:locationMap
+            rdf:resource="http://www.geonames.org/6955108/miami-fort-lauderdale-pompano-beach.html"/>
+        <skos:prefLabel xml:lang="en">Miami-Fort Lauderdale-Pompano Beach</skos:prefLabel>
+    </skos:Concept>
+    <skos:Concept rdf:about="http://sws.geonames.org/6955102/">
+        <rdfs:isDefinedBy rdf:resource="http://sws.geonames.org/6955102/about.rdf"/>
+        <gn:name>New York-Northern New Jersey-Long Island</gn:name>
+        <gn:featureClass rdf:resource="http://www.geonames.org/ontology#L"/>
+        <gn:featureCode rdf:resource="http://www.geonames.org/ontology#L.RGNE"/>
+        <gn:countryCode>US</gn:countryCode>
+        <gn:population>19006798</gn:population>
+        <wgs84_pos:lat>40.75766</wgs84_pos:lat>
+        <wgs84_pos:long>-73.91327</wgs84_pos:long>
+        <gn:parentCountry rdf:resource="http://sws.geonames.org/6252001/"/>
+        <gn:nearbyFeatures rdf:resource="http://sws.geonames.org/6955102/nearby.rdf"/>
+        <gn:locationMap
+            rdf:resource="http://www.geonames.org/6955102/new-york-northern-new-jersey-long-island.html"/>
+        <skos:prefLabel xml:lang="en">New York-Northern New Jersey-Long Island</skos:prefLabel>
+    </skos:Concept>
+    <skos:Concept rdf:about="http://sws.geonames.org/6949565/">
+        <rdfs:isDefinedBy rdf:resource="http://sws.geonames.org/6949565/about.rdf"/>
+        <gn:name>Orange County Convention Center</gn:name>
+        <gn:featureClass rdf:resource="http://www.geonames.org/ontology#L"/>
+        <gn:featureCode rdf:resource="http://www.geonames.org/ontology#L.RGNE"/>
+        <gn:countryCode>US</gn:countryCode>
+        <wgs84_pos:lat>28.4264</wgs84_pos:lat>
+        <wgs84_pos:long>-81.4656</wgs84_pos:long>
+        <gn:parentCountry rdf:resource="http://sws.geonames.org/6252001/"/>
+        <gn:nearbyFeatures rdf:resource="http://sws.geonames.org/6949565/nearby.rdf"/>
+        <gn:locationMap
+            rdf:resource="http://www.geonames.org/6949565/orange-county-convention-center.html"/>
+        <gn:wikipediaArticle
+            rdf:resource="http://en.wikipedia.org/wiki/Orange_County_Convention_Center"/>
+        <rdfs:seeAlso rdf:resource="http://dbpedia.org/resource/Orange_County_Convention_Center"/>
+        <skos:prefLabel xml:lang="en">Orange County Convention Center</skos:prefLabel>
+    </skos:Concept>
+    <skos:Concept rdf:about="http://sws.geonames.org/6955106/">
+        <rdfs:isDefinedBy rdf:resource="http://sws.geonames.org/6955106/about.rdf"/>
+        <gn:name>Philadelphia-Camden-Wilmington</gn:name>
+        <gn:featureClass rdf:resource="http://www.geonames.org/ontology#L"/>
+        <gn:featureCode rdf:resource="http://www.geonames.org/ontology#L.RGNE"/>
+        <gn:countryCode>US</gn:countryCode>
+        <gn:population>5838471</gn:population>
+        <wgs84_pos:lat>39.8328</wgs84_pos:lat>
+        <wgs84_pos:long>-75.39505</wgs84_pos:long>
+        <gn:parentCountry rdf:resource="http://sws.geonames.org/6252001/"/>
+        <gn:nearbyFeatures rdf:resource="http://sws.geonames.org/6955106/nearby.rdf"/>
+        <gn:locationMap
+            rdf:resource="http://www.geonames.org/6955106/philadelphia-camden-wilmington.html"/>
+        <skos:prefLabel xml:lang="en">Philadelphia-Camden-Wilmington</skos:prefLabel>
+    </skos:Concept>
+    <skos:Concept rdf:about="http://sws.geonames.org/6955113/">
+        <rdfs:isDefinedBy rdf:resource="http://sws.geonames.org/6955113/about.rdf"/>
+        <gn:name>Phoenix-Mesa-Scotsdale</gn:name>
+        <gn:featureClass rdf:resource="http://www.geonames.org/ontology#L"/>
+        <gn:featureCode rdf:resource="http://www.geonames.org/ontology#L.RGNE"/>
+        <gn:countryCode>US</gn:countryCode>
+        <gn:population>4281899</gn:population>
+        <wgs84_pos:lat>33.4492</wgs84_pos:lat>
+        <wgs84_pos:long>-112.0784</wgs84_pos:long>
+        <gn:parentCountry rdf:resource="http://sws.geonames.org/6252001/"/>
+        <gn:nearbyFeatures rdf:resource="http://sws.geonames.org/6955113/nearby.rdf"/>
+        <gn:locationMap rdf:resource="http://www.geonames.org/6955113/phoenix-mesa-scotsdale.html"/>
+        <skos:prefLabel xml:lang="en">Phoenix-Mesa-Scotsdale</skos:prefLabel>
+    </skos:Concept>
+    <skos:Concept rdf:about="http://sws.geonames.org/6955115/">
+        <rdfs:isDefinedBy rdf:resource="http://sws.geonames.org/6955115/about.rdf"/>
+        <gn:name>Riverside-San Bernadino-Ontario</gn:name>
+        <gn:featureClass rdf:resource="http://www.geonames.org/ontology#L"/>
+        <gn:featureCode rdf:resource="http://www.geonames.org/ontology#L.RGNE"/>
+        <gn:countryCode>US</gn:countryCode>
+        <gn:population>4115871</gn:population>
+        <wgs84_pos:lat>34.06062</wgs84_pos:lat>
+        <wgs84_pos:long>-117.4205</wgs84_pos:long>
+        <gn:parentCountry rdf:resource="http://sws.geonames.org/6252001/"/>
+        <gn:nearbyFeatures rdf:resource="http://sws.geonames.org/6955115/nearby.rdf"/>
+        <gn:locationMap
+            rdf:resource="http://www.geonames.org/6955115/riverside-san-bernadino-ontario.html"/>
+        <skos:prefLabel xml:lang="en">Riverside-San Bernadino-Ontario</skos:prefLabel>
+    </skos:Concept>
+    <skos:Concept rdf:about="http://sws.geonames.org/6955119/">
+        <rdfs:isDefinedBy rdf:resource="http://sws.geonames.org/6955119/about.rdf"/>
+        <gn:name>St. Louis</gn:name>
+        <gn:featureClass rdf:resource="http://www.geonames.org/ontology#L"/>
+        <gn:featureCode rdf:resource="http://www.geonames.org/ontology#L.RGNE"/>
+        <gn:countryCode>US</gn:countryCode>
+        <gn:population>2816710</gn:population>
+        <wgs84_pos:lat>38.63162</wgs84_pos:lat>
+        <wgs84_pos:long>-90.24925</wgs84_pos:long>
+        <gn:parentCountry rdf:resource="http://sws.geonames.org/6252001/"/>
+        <gn:nearbyFeatures rdf:resource="http://sws.geonames.org/6955119/nearby.rdf"/>
+        <gn:locationMap rdf:resource="http://www.geonames.org/6955119/st-louis.html"/>
+        <gn:wikipediaArticle rdf:resource="http://en.wikipedia.org/wiki/St._Louis%2C_Missouri"/>
+        <rdfs:seeAlso rdf:resource="http://dbpedia.org/resource/St._Louis%2C_Missouri"/>
+        <skos:prefLabel xml:lang="en">St. Louis</skos:prefLabel>
+    </skos:Concept>
+    <skos:Concept rdf:about="http://sws.geonames.org/10630414/">
+        <rdfs:isDefinedBy rdf:resource="http://sws.geonames.org/10630414/about.rdf"/>
+        <gn:name>San Francisco Bay Area</gn:name>
+        <gn:featureClass rdf:resource="http://www.geonames.org/ontology#L"/>
+        <gn:featureCode rdf:resource="http://www.geonames.org/ontology#L.RGNE"/>
+        <gn:countryCode>US</gn:countryCode>
+        <gn:population>7560000</gn:population>
+        <wgs84_pos:lat>37.77239</wgs84_pos:lat>
+        <wgs84_pos:long>-122.42349</wgs84_pos:long>
+        <wgs84_pos:alt>0</wgs84_pos:alt>
+        <gn:parentCountry rdf:resource="http://sws.geonames.org/6252001/"/>
+        <gn:nearbyFeatures rdf:resource="http://sws.geonames.org/10630414/nearby.rdf"/>
+        <gn:locationMap rdf:resource="http://www.geonames.org/10630414/san-francisco-bay-area.html"/>
+        <skos:prefLabel xml:lang="en">San Francisco Bay Area</skos:prefLabel>
+    </skos:Concept>
+    <skos:Concept rdf:about="http://sws.geonames.org/6955114/">
+        <rdfs:isDefinedBy rdf:resource="http://sws.geonames.org/6955114/about.rdf"/>
+        <gn:name>San Francisco-Oakland-Fremont</gn:name>
+        <gn:featureClass rdf:resource="http://www.geonames.org/ontology#L"/>
+        <gn:featureCode rdf:resource="http://www.geonames.org/ontology#L.RGNE"/>
+        <gn:countryCode>US</gn:countryCode>
+        <gn:population>4274531</gn:population>
+        <wgs84_pos:lat>37.77668</wgs84_pos:lat>
+        <wgs84_pos:long>-122.42031</wgs84_pos:long>
+        <gn:parentCountry rdf:resource="http://sws.geonames.org/6252001/"/>
+        <gn:nearbyFeatures rdf:resource="http://sws.geonames.org/6955114/nearby.rdf"/>
+        <gn:locationMap
+            rdf:resource="http://www.geonames.org/6955114/san-francisco-oakland-fremont.html"/>
+        <skos:prefLabel xml:lang="en">San Francisco-Oakland-Fremont</skos:prefLabel>
+    </skos:Concept>
+    <skos:Concept rdf:about="http://sws.geonames.org/6955116/">
+        <rdfs:isDefinedBy rdf:resource="http://sws.geonames.org/6955116/about.rdf"/>
+        <gn:name>Seattle-Tacoma-Bellevue</gn:name>
+        <gn:featureClass rdf:resource="http://www.geonames.org/ontology#L"/>
+        <gn:featureCode rdf:resource="http://www.geonames.org/ontology#L.RGNE"/>
+        <gn:countryCode>US</gn:countryCode>
+        <gn:population>3344813</gn:population>
+        <wgs84_pos:lat>47.60014</wgs84_pos:lat>
+        <wgs84_pos:long>-122.3283</wgs84_pos:long>
+        <gn:parentCountry rdf:resource="http://sws.geonames.org/6252001/"/>
+        <gn:nearbyFeatures rdf:resource="http://sws.geonames.org/6955116/nearby.rdf"/>
+        <gn:locationMap rdf:resource="http://www.geonames.org/6955116/seattle-tacoma-bellevue.html"/>
+        <skos:prefLabel xml:lang="en">Seattle-Tacoma-Bellevue</skos:prefLabel>
+    </skos:Concept>
+    <skos:Concept rdf:about="http://sws.geonames.org/6955118/">
+        <rdfs:isDefinedBy rdf:resource="http://sws.geonames.org/6955118/about.rdf"/>
+        <gn:name>San Diego-Carlsbad-San Marcos</gn:name>
+        <gn:featureClass rdf:resource="http://www.geonames.org/ontology#L"/>
+        <gn:featureCode rdf:resource="http://www.geonames.org/ontology#L.RGNE"/>
+        <gn:countryCode>US</gn:countryCode>
+        <gn:population>3001072</gn:population>
+        <wgs84_pos:lat>32.71307</wgs84_pos:lat>
+        <wgs84_pos:long>-117.15855</wgs84_pos:long>
+        <gn:parentCountry rdf:resource="http://sws.geonames.org/6252001/"/>
+        <gn:nearbyFeatures rdf:resource="http://sws.geonames.org/6955118/nearby.rdf"/>
+        <gn:locationMap
+            rdf:resource="http://www.geonames.org/6955118/san-diego-carlsbad-san-marcos.html"/>
+        <skos:prefLabel xml:lang="en">San Diego-Carlsbad-San Marcos</skos:prefLabel>
+    </skos:Concept>
+    <skos:Concept rdf:about="http://sws.geonames.org/6955101/">
+        <rdfs:isDefinedBy rdf:resource="http://sws.geonames.org/6955101/about.rdf"/>
+        <gn:name>Tampa-St. Petersburg-Clearwater</gn:name>
+        <gn:featureClass rdf:resource="http://www.geonames.org/ontology#L"/>
+        <gn:featureCode rdf:resource="http://www.geonames.org/ontology#L.RGNE"/>
+        <gn:countryCode>US</gn:countryCode>
+        <gn:population>2733761</gn:population>
+        <wgs84_pos:lat>27.87307</wgs84_pos:lat>
+        <wgs84_pos:long>-82.51007</wgs84_pos:long>
+        <gn:parentCountry rdf:resource="http://sws.geonames.org/6252001/"/>
+        <gn:nearbyFeatures rdf:resource="http://sws.geonames.org/6955101/nearby.rdf"/>
+        <gn:locationMap
+            rdf:resource="http://www.geonames.org/6955101/tampa-st-petersburg-clearwater.html"/>
+        <skos:prefLabel xml:lang="en">Tampa-St. Petersburg-Clearwater</skos:prefLabel>
+    </skos:Concept>
+    <skos:Concept rdf:about="http://sws.geonames.org/6955110/">
+        <rdfs:isDefinedBy rdf:resource="http://sws.geonames.org/6955110/about.rdf"/>
+        <gn:name>Washington-Arlington-Alexandria</gn:name>
+        <gn:featureClass rdf:resource="http://www.geonames.org/ontology#L"/>
+        <gn:featureCode rdf:resource="http://www.geonames.org/ontology#L.RGNE"/>
+        <gn:countryCode>US</gn:countryCode>
+        <gn:population>5358130</gn:population>
+        <wgs84_pos:lat>38.85735</wgs84_pos:lat>
+        <wgs84_pos:long>-77.06223</wgs84_pos:long>
+        <gn:parentCountry rdf:resource="http://sws.geonames.org/6252001/"/>
+        <gn:nearbyFeatures rdf:resource="http://sws.geonames.org/6955110/nearby.rdf"/>
+        <gn:locationMap
+            rdf:resource="http://www.geonames.org/6955110/washington-arlington-alexandria.html"/>
+        <skos:prefLabel xml:lang="en">Washington-Arlington-Alexandria</skos:prefLabel>
+    </skos:Concept>
+</rdf:RDF>
